@@ -91,7 +91,7 @@ describe("About Applying What We Have Learnt", function() {
   });
 
   it("should count the ingredient occurrence (functional)", function () {
-    var ingredientCount = { "{ingredient name}": 0 };
+    var ingredientCount = { mushrooms: 0 };
     var ingredientsArray = []
     for(var i = 0; i<products.length; i++){
       ingredientsArray.push(products[i].ingredients)
@@ -99,21 +99,21 @@ describe("About Applying What We Have Learnt", function() {
 
     var sum = _(ingredientsArray).chain()
               .flatten()
-              .map(function(x, i){
+              .map(function(x){
                 if(ingredientCount[x] === undefined){
-                  ingredientsArray.splice(i, 1, 0)
+                  return 0
                 } else if(ingredientCount[x] === 0){
-                  ingredientsArray.splice(i, 1, 1)
+                  return 1
                 }
               })
-              .reduce(function(memo, num){
-                return memo + num
-              })
+              .reduce(function(memo, num){return memo + num})
               .value()
+
+     ingredientCount['mushrooms'] = sum
 
     /* chain() together map(), flatten() and reduce() */
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    expect(ingredientCount['mushrooms']).toBe(sum);
   });
 
   /*********************************************************************************/
